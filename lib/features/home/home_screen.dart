@@ -18,35 +18,101 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit,HomeStates>(
+    return BlocConsumer<HomeCubit,HomeStates>(
+      listener: (context,state){},
         builder: (context,state){
           ScreenSize.init(context);
           HomeCubit cubit = HomeCubit.get(context);
+          GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
           return Scaffold(
+            key: _scaffoldKey,
             drawer: Drawer(
                 child: ListView(
-                  // Important: Remove any padding from the ListView.
                   padding: EdgeInsets.zero,
                   children: [
                     DrawerHeader(
                       decoration: BoxDecoration(
                         color: Color(0xff174068),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: AssetImage('assets/images/logo.png')),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(cubit.profileModel.image,),
+                            radius: 30,
+                          ),
+                          SizedBox(height: ScreenSize.screenHeight*0.018,),
+                          Text('${cubit.profileModel.name}',style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                             color: Colors.white
+                          ), ),
+                          SizedBox(height: ScreenSize.screenHeight*0.018,),
+                          Text('${cubit.profileModel.email}',style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                          ), ),
+                        ],
                       )
 
-                      // Image(image: AssetImage('assets/images/logo.png')),
                     ),
-                    ListTile(
-                      title: const Text('Logout'),
-                      onTap: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
-                      },
-                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            title: const Text('Order history',style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey
+                            ),),
+                            onTap: () {
+
+                            },
+                            leading: Icon(Icons.history),
+                          ),
+                          Divider(height: 1,color: Colors.grey,),
+                          ListTile(
+                            title: const Text('Edit profile',style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey
+                            ),),
+                            onTap: () {
+
+                            },
+                            leading: Icon(Icons.edit),
+                          ),
+                          Divider(height: 1,color: Colors.grey,),
+                          ListTile(
+                            title: const Text('Change password',style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey
+                            ),),
+                            onTap: () {
+
+                            },
+                            leading: Icon(Icons.password_outlined),
+                          ),
+                          Divider(height: 1,color: Colors.grey,),
+                          ListTile(
+                            title: const Text('Logout',style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey
+                            ),),
+                            onTap: () {
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                            },
+                            leading: Icon(Icons.logout_outlined,color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    )
+
 
                   ],
                 ),
@@ -61,12 +127,14 @@ class HomeScreen extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(onPressed: (){}, icon: Icon(Icons.menu)),
+                        IconButton(onPressed: (){
+                          _scaffoldKey.currentState?.openDrawer();
+                        }, icon: Icon(Icons.menu)),
                         SizedBox(width: ScreenSize.screenWidth*0.025),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Hi, ${cubit.profileModel?.name}',style: TextStyle(
+                            Text('Hi, ${cubit.profileModel.name}',style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700
                             ), ),
@@ -83,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Spacer(),
                         CircleAvatar(
-                          backgroundImage: NetworkImage(cubit.profileModel!.image,),
+                          backgroundImage: NetworkImage(cubit.profileModel.image,),
                           radius: 30,
                         )
                       ],
@@ -207,7 +275,7 @@ class HomeScreen extends StatelessWidget {
 
                           ),
 
-                          items:  cubit.imgList
+                          items: cubit.imgList
                               .map((item) => Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Container(

@@ -2,8 +2,10 @@ abstract class HomeStates {}
 
 class InitialHomeState extends HomeStates {}
 class HomeChangeSliderIndexState extends HomeStates {}
-class HomeSuccessfullGetBestSellerState extends HomeStates {}
-class HomeSuccessfullGetNewArrivalState extends HomeStates {}
-class HomeSuccessfullGetSliderImagesState extends HomeStates {}
-class HomeSuccessfullGetCategories extends HomeStates {}
-class HomeSuccessfullGetProfileDataState extends HomeStates {}
+class HomeSuccessfulGetBestSellerState extends HomeStates {}
+class HomeSuccessfulGetNewArrivalState extends HomeStates {}
+class HomeSuccessfulGetSliderImagesState extends HomeStates {}
+class HomeSuccessfulGetCategories extends HomeStates {}
+class HomeSuccessfulGetProfileDataState extends HomeStates {}
+class HomeSuccessfulChangeNavigationBarState extends HomeStates {}
+class HomeSuccessfulGetSpecificBookState extends HomeStates {}

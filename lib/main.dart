@@ -1,4 +1,8 @@
 
+import 'package:e_commerce/features/books/cubit/books_cubit.dart';
+import 'package:e_commerce/features/cart/cubit/cart_cubit.dart';
+import 'package:e_commerce/features/checkout/cubit/checkout_cubit.dart';
+import 'package:e_commerce/features/home/abstract.dart';
 import 'package:e_commerce/features/home/cubit/home_cubit.dart';
 import 'package:e_commerce/features/home/home_screen.dart';
 import 'package:e_commerce/features/register/register_screen.dart';
@@ -30,14 +34,17 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LoginCubit(),),
         BlocProvider(create: (context) => RegisterCubit(),),
+        BlocProvider(create: (context) => BooksCubit()..getBooks()/*..getFavoriteBooks(),*/),
         BlocProvider(create: (context) => HomeCubit().. getProfileDetails()..getAllSliders()..getBestSellingProducts()..getCategories()..getNewArrivalProducts(),),
+        BlocProvider(create: (context) => CartCubit()..getCartProducts()),
+        BlocProvider(create: (context) => CheckoutCubit()..getCheckout()..getCities()),
       ],
       child: MaterialApp(
         title: 'E-commerce',
         theme: ThemeData(
 
         ),
-        home: SplashScreen(),
+        home: AbstractScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );

@@ -96,9 +96,9 @@ Widget smalldefaultButton({
 }) =>
     Container(
       height: MediaQuery.of(context).size.height * 0.05,
-      width: MediaQuery.of(context).size.width * 0.25,
+      width: MediaQuery.of(context).size.width * 0.28,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(15.0),
         color: color,
         boxShadow: [
           BoxShadow(
